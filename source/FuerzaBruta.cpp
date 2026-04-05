@@ -19,7 +19,7 @@ vector<int> FuerzaBruta(const vector<vector<double>>& energia, int i, int j){
                 candidateEnergy += energia[auxI][c-1];
                 auxI++;
             }
-            if(candidateEnergy<minEnergy){ // poda de optimalidad, vemos si el candidato es mejor al camino que conseguimos hasta ahora
+            if(candidateEnergy<minEnergy){ // poda de optimalidad, vemos si el candidato es mejor al camino que conseguimos hasta ahora.
                 minEnergy = candidateEnergy;
                 best = candidate;
             }
