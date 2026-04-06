@@ -38,7 +38,7 @@ std::vector<int> encontrarSeamFuerzaBruta(const std::vector<std::vector<double>>
     // hacemos lo mismo que en la recursión para encontrar la columna óptima de la primera columna
     vector<int> best;
     double minEnergy = 1e18;
-    for(int j = 0; j < m; j++){
+    for(int j = 0; j < m; j++){ //avanzo columnas
         vector<int> candidate = FuerzaBruta(energia,0,j);
         double totalEnergy = 0;
         for (int i = 0; i < candidate.size(); i++) { // calculamos energia de la costura
