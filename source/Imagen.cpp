@@ -109,3 +109,5 @@ void Imagen::eliminarSeam(const std::vector<int>& seam) {
     }
     _ancho--;
 }
+
+// HOLA HICE UN PUSH
