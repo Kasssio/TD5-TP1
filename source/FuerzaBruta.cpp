@@ -1,53 +1,36 @@
 #include "FuerzaBruta.h"
 using namespace std;
 #include <iostream>
-
-vector<int> FuerzaBruta(const vector<vector<double>>& energia, int i, int j){ 
-    int n = energia.size();
-    int m = energia[0].size();
-    if (i == n - 1){
-        return {j+1};
-    }
-    vector<int> best;
-    double minEnergy = 1e18; // establecemos energia mínima para empezar a comparar
-    for(int k = -1; k <= 1; k++){
-        if (j+k >= 0 && j+k < m){
-            vector<int> candidate = FuerzaBruta(energia,i+1,j+k); // salto recursivo 
-            double candidateEnergy = 0;
-            int auxI = i+1; // fila inicial para recorrer el candidato
-            for(int c : candidate){ // reconstruimos la energia del candidato para ver si es el óptimo
-                candidateEnergy += energia[auxI][c-1];
-                auxI++;
-            }
-            if(candidateEnergy<minEnergy){ // poda de optimalidad, vemos si el candidato es mejor al camino que conseguimos hasta ahora.
-                minEnergy = candidateEnergy;
-                best = candidate;
-            }
+vector<int> best;
+int n;
+int m;
+double minEnergy = __DBL_MAX__;
+void FuerzaBruta(const vector<vector<double>>& energia, int i, int j, pair<vector<int>,double> currSeam){ // O(3^n) 
+    if(j < 0 || j >= m) return; // Chequeo fuera de rango. O(1).
+    pair<vector<int>, double> temp = currSeam; // La costura que nos queda desde donde estamos parados. O(1).
+    temp.first.push_back(j+1); // O(1) amortizado
+    temp.second += energia[i][j]; // O(1)
+    if(i == n-1){ // Caso base, llegamos al final. O(1).
+        if(temp.second < minEnergy) { // Reemplazamos el mejor si encontramos un mejor resultado. O(1).
+            minEnergy = temp.second; // O(1)
+            best = temp.first; // O(1)
         }
+        return; // O(1)
     }
-    // ahora tenemos que armar el path
-    vector<int> currPath = {j+1};
-    for (int c : best) {
-        currPath.push_back(c);
+    for(int k=-1; k<=1;k++) { // Recorremos energia[i+1][j-1], energia[i+1][j] y energia[i+1][j+1] recursivamente. O(1).
+        FuerzaBruta(energia, i+1,j+k,temp);// O(F(n))
     }
-    return currPath;
 }
-std::vector<int> encontrarSeamFuerzaBruta(const std::vector<std::vector<double>>& energia) {
+std::vector<int> encontrarSeamFuerzaBruta(const std::vector<std::vector<double>>& energia) { // Complejidad final: O(m*3^n).
     if (energia.empty()) return {};
-    int m = energia[0].size();
-    // hacemos lo mismo que en la recursión para encontrar la columna óptima de la primera columna
-    vector<int> best;
-    double minEnergy = 1e18;
-    for(int j = 0; j < m; j++){ //avanzo columnas
-        vector<int> candidate = FuerzaBruta(energia,0,j);
-        double totalEnergy = 0;
-        for (int i = 0; i < candidate.size(); i++) { // calculamos energia de la costura
-            totalEnergy += energia[i][candidate[i] - 1];
-        }
-        if(totalEnergy < minEnergy) {
-            minEnergy = totalEnergy;
-            best = candidate;
-        }
+    // Reseteamos variables globales.
+    n = energia.size();
+    m = energia[0].size();
+    minEnergy = __DBL_MAX__;
+    best.clear();
+    // Vemos cuál de las m columnas de la primera fila nos da la costura de mínima energía.
+    for(int i = 0; i < m; i++){ // O(m)
+        FuerzaBruta(energia,0,i,{{},0}); // O(3^n)
     }
     return best;
 }
