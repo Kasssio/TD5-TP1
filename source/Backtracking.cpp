@@ -5,7 +5,7 @@ using namespace std;
 void Backtracking(const std::vector<std::vector<double>>& energia,int i, int j,pair<vector<int>, double> curr,pair<vector<int>, double>& best) {
     int n = energia.size();
     int m = energia[0].size();
-    curr.first.push_back(j + 1);
+    curr.first.push_back(j);
     curr.second += energia[i][j];
     if (curr.second >= best.second) return; // Poda de optimalidad.
     if (i == n-1){ 
