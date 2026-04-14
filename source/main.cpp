@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 #include <stdexcept>
+#include <chrono>
+
 
 #include "Imagen.h"
 #include "FuerzaBruta.h"
@@ -103,6 +105,7 @@ void imprimirUso() {
 }
 
 int main(int argc, char* argv[]) {
+auto start = std::chrono::high_resolution_clock::now();
     if (argc < 2) {
         imprimirUso();
         return 1;
@@ -142,6 +145,8 @@ int main(int argc, char* argv[]) {
         std::cerr << "Error: " << e.what() << "\n";
         return 1;
     }
-
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double, std::milli> duration = end - start;
+    std::cout << "Tiempo: " << duration.count() << " ms\n";
     return 0;
 }
