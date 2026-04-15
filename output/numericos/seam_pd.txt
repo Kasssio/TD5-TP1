@@ -1,5 +1,5 @@
-fila 0 -> columna 0
+fila 0 -> columna 1
 fila 1 -> columna 0
-fila 2 -> columna 0
-fila 3 -> columna 0
-fila 4 -> columna 0
+fila 2 -> columna 1
+fila 3 -> columna 2
+fila 4 -> columna 3
