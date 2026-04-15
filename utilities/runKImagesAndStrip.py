@@ -48,6 +48,7 @@ def run_seam_range(start_k, end_k, image_folder="img/scaling/",algo="pd", iterat
 if __name__ == "__main__":
     # Get range from user
     try:
+        print("ATTENTION! THIS CODE WORKS ONLY FOR SQUARE IMAGES, e.g. 300x300 px. These images must be stored in img/scaling.")
         low = int(input("Start at resolution (k): "))
         high = int(input("End at resolution (k): "))
         iters = input("Iterations: ")
