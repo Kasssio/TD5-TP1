@@ -1,8 +1,8 @@
 import random
 
 # Dimensiones
-n = 2000
-m = 2000
+n = int(input("Rows: "))
+m = int(input("Columns: "))
 
 # Nombre del archivo
 filename = "matriz.txt"

@@ -5,8 +5,8 @@ import math
 from PIL import Image
 import numpy as np
 
-from source.py.AhoraenPython import encontrar_seam_backtracking
-from source.py.AhoraenPython import encontrar_seam_pd
+from AhoraenPython import encontrar_seam_backtracking
+from AhoraenPython import encontrar_seam_pd
 
 
 def calcular_energia(imagen):
