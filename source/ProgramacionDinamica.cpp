@@ -25,7 +25,7 @@ std::vector<int> encontrarSeamPD(const std::vector<std::vector<double>>& energia
     double minimo = 1e18; 
     int minPos;
     for(int i=0; i<m; i++){ 
-        if(solution[n-1][i] <= minimo) {
+        if(solution[n-1][i] < minimo) {
             minimo = solution[n-1][i];
             minPos = i;
 
